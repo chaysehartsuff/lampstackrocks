@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Check if docker-compose command is available
+if command -v docker-compose &> /dev/null; then
+    DOCKER_CMD="docker-compose"
+# Check if docker compose command is available
+elif command -v docker-compose &> /dev/null; then
+    DOCKER_CMD="docker compose"
+else
+    echo "Neither docker-compose nor docker compose command found. Please install Docker Compose and try again."
+    exit 1
+fi
+
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 ENV_FILE="$SCRIPT_DIR/../.env"
 
@@ -15,18 +26,15 @@ else
 fi
 
 echo "Building containers..."
-docker compose up -d --build
-
-HOST='db'
-PORT='3306'
+$DOCKER_CMD up -d --build
 
 echo "Waiting for MySQL to become available..."
 for ((i=1;i<=MAX_ATTEMPTS;i++)); do
-    if mysqladmin ping -h 127.0.0.1 -P $PORT --protocol=TCP -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent 2>/dev/null; then
-        echo "It's alive!"
+    if $DOCKER_CMD exec -T db mysqladmin ping -h db -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent &> /dev/null; then
+        echo "MySQL is up and running!"
         break
     else
-        echo "still waiting...Attempt $i/$MAX_ATTEMPTS..."
+        echo "Still waiting...Attempt $i/$MAX_ATTEMPTS..."
         sleep $SLEEP_DURATION
     fi
 
@@ -37,10 +45,9 @@ for ((i=1;i<=MAX_ATTEMPTS;i++)); do
 done
 
 echo "Inserting schema..."
-docker-compose exec -T db mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < "$SCRIPT_DIR/../src/sql/init.sql" 2> /dev/null
+$DOCKER_CMD exec -T db mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < "$SCRIPT_DIR/../src/sql/init.sql" 2> /dev/null
 
 echo "Seeding database..."
-docker-compose exec -T db mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < "$SCRIPT_DIR/../src/sql/seed.sql" 2> /dev/null
+$DOCKER_CMD exec -T db mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < "$SCRIPT_DIR/../src/sql/seed.sql" 2> /dev/null
 
 echo "Live at http://localhost:8080"
-
