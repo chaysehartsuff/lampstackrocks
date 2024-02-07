@@ -1,22 +1,3 @@
-<?php
-require 'db_connection.php';
-
-$sql = "SELECT * FROM users";
-$result = $conn->query($sql);
-
-$users = [];
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $users[] = $row;
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close();
-?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +35,10 @@ $conn->close();
         .search{
             margin: 10px;
         }
+        table{
+            width: 95%;
+            margin: auto;
+        }
         body{
             margin: 0;
             padding: 0;
@@ -79,7 +64,7 @@ $conn->close();
     </button>
 </div>
 
-    <table class="search">
+    <table>
         <thead>
             <tr>
                 <th>ID</th>

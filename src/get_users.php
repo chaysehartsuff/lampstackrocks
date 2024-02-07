@@ -1,28 +1,26 @@
 <?php
-require_once 'db_connection.php'; // Ensure this file uses mysqli to establish the connection.
+require_once 'db_connection.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Single search input
-$searchInput = $_GET['search'] ?? ''; // Use null coalescing operator to avoid undefined index notice
+$searchInput = $_GET['search'] ?? '';
 
-// List of column names to compare against
 $columnNames = ['id', 'first_name', 'last_name', 'email', 'address', 'phone'];
 $conditions = [];
 $params = [];
-$types = ''; // For storing the types of the parameters
+$types = ''; 
 
-// Construct conditions and parameters if search input is provided
 if (!empty($searchInput)) {
     foreach ($columnNames as $columnName) {
         $conditions[] = "$columnName LIKE ?";
         $params[] = "%$searchInput%";
-        $types .= 's'; // All inputs are treated as strings
+        $types .= 's';
     }
 }
 
 $sql = "SELECT * FROM users";
-// Append conditions to the SQL query if there are any
+
 if (!empty($conditions)) {
     $sql .= " WHERE " . implode(" OR ", $conditions);
 }
