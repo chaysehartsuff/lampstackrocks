@@ -1,3 +1,4 @@
+NOTE: Make sure docker compose is installed
 
 ## Deployment
 
