@@ -1,7 +1,5 @@
--- Use the newly created database
 USE homestead;
 
--- Create a users table
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
