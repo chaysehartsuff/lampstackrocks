@@ -1,0 +1,77 @@
+[Wed Feb 07 05:49:55.453719 2024] [unixd:alert] [pid 8] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:49:55.454139 2024] [proxy:debug] [pid 8] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:49:55.454272 2024] [proxy:debug] [pid 8] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:49:55.454177 2024] [unixd:alert] [pid 9] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:49:55.454233 2024] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.58 (Unix) configured -- resuming normal operations
+[Wed Feb 07 05:49:55.454614 2024] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Wed Feb 07 05:49:55.454860 2024] [proxy:debug] [pid 9] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:49:55.454935 2024] [unixd:alert] [pid 11] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:49:55.455101 2024] [proxy:debug] [pid 11] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:49:55.455672 2024] [unixd:alert] [pid 10] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:49:55.455815 2024] [unixd:alert] [pid 12] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:49:55.456174 2024] [proxy:debug] [pid 12] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:49:55.455991 2024] [proxy:debug] [pid 10] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:49:55.456023 2024] [proxy:debug] [pid 8] proxy_util.c(2262): AH00931: initialized single connection worker in child 8 for (*:80)
+[Wed Feb 07 05:49:55.456252 2024] [proxy:debug] [pid 9] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:49:55.456321 2024] [proxy:debug] [pid 9] proxy_util.c(2262): AH00931: initialized single connection worker in child 9 for (*:80)
+[Wed Feb 07 05:49:55.456501 2024] [proxy:debug] [pid 11] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:49:55.456564 2024] [proxy:debug] [pid 11] proxy_util.c(2262): AH00931: initialized single connection worker in child 11 for (*:80)
+[Wed Feb 07 05:49:55.456618 2024] [proxy:debug] [pid 12] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:49:55.456668 2024] [proxy:debug] [pid 12] proxy_util.c(2262): AH00931: initialized single connection worker in child 12 for (*:80)
+[Wed Feb 07 05:49:55.456710 2024] [proxy:debug] [pid 10] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:49:55.456757 2024] [proxy:debug] [pid 10] proxy_util.c(2262): AH00931: initialized single connection worker in child 10 for (*:80)
+[Wed Feb 07 05:50:29.494012 2024] [unixd:alert] [pid 13] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:50:29.494315 2024] [proxy:debug] [pid 13] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:50:29.494340 2024] [proxy:debug] [pid 13] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:50:29.494439 2024] [proxy:debug] [pid 13] proxy_util.c(2262): AH00931: initialized single connection worker in child 13 for (*:80)
+[Wed Feb 07 05:53:23.704839 2024] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+[Wed Feb 07 05:53:52.088615 2024] [unixd:alert] [pid 8] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:53:52.088877 2024] [proxy:debug] [pid 8] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:53:52.088891 2024] [proxy:debug] [pid 8] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:53:52.088851 2024] [unixd:alert] [pid 9] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:53:52.088967 2024] [proxy:debug] [pid 8] proxy_util.c(2262): AH00931: initialized single connection worker in child 8 for (*:80)
+[Wed Feb 07 05:53:52.088990 2024] [proxy:debug] [pid 9] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:53:52.089000 2024] [proxy:debug] [pid 9] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:53:52.089044 2024] [proxy:debug] [pid 9] proxy_util.c(2262): AH00931: initialized single connection worker in child 9 for (*:80)
+[Wed Feb 07 05:53:52.089328 2024] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.58 (Unix) configured -- resuming normal operations
+[Wed Feb 07 05:53:52.089567 2024] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Wed Feb 07 05:53:52.089681 2024] [unixd:alert] [pid 10] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:53:52.089819 2024] [proxy:debug] [pid 10] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:53:52.089829 2024] [proxy:debug] [pid 10] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:53:52.089875 2024] [proxy:debug] [pid 10] proxy_util.c(2262): AH00931: initialized single connection worker in child 10 for (*:80)
+[Wed Feb 07 05:53:52.089841 2024] [unixd:alert] [pid 11] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:53:52.090010 2024] [proxy:debug] [pid 11] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:53:52.090024 2024] [proxy:debug] [pid 11] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:53:52.090069 2024] [proxy:debug] [pid 11] proxy_util.c(2262): AH00931: initialized single connection worker in child 11 for (*:80)
+[Wed Feb 07 05:53:52.090001 2024] [unixd:alert] [pid 12] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:53:52.090153 2024] [proxy:debug] [pid 12] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:53:52.090164 2024] [proxy:debug] [pid 12] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:53:52.090212 2024] [proxy:debug] [pid 12] proxy_util.c(2262): AH00931: initialized single connection worker in child 12 for (*:80)
+[Wed Feb 07 05:54:01.967798 2024] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+[Wed Feb 07 05:55:43.339994 2024] [unixd:alert] [pid 8] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:55:43.340259 2024] [proxy:debug] [pid 8] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:55:43.340275 2024] [proxy:debug] [pid 8] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:55:43.340327 2024] [proxy:debug] [pid 8] proxy_util.c(2262): AH00931: initialized single connection worker in child 8 for (*:80)
+[Wed Feb 07 05:55:43.340351 2024] [unixd:alert] [pid 9] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:55:43.340400 2024] [unixd:alert] [pid 10] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:55:43.340504 2024] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.58 (Unix) configured -- resuming normal operations
+[Wed Feb 07 05:55:43.340638 2024] [proxy:debug] [pid 9] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:55:43.340649 2024] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Wed Feb 07 05:55:43.340658 2024] [proxy:debug] [pid 9] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:55:43.340738 2024] [proxy:debug] [pid 9] proxy_util.c(2262): AH00931: initialized single connection worker in child 9 for (*:80)
+[Wed Feb 07 05:55:43.340973 2024] [proxy:debug] [pid 10] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:55:43.340991 2024] [proxy:debug] [pid 10] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:55:43.341038 2024] [proxy:debug] [pid 10] proxy_util.c(2262): AH00931: initialized single connection worker in child 10 for (*:80)
+[Wed Feb 07 05:55:43.340988 2024] [unixd:alert] [pid 11] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:55:43.341083 2024] [unixd:alert] [pid 12] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:55:43.341140 2024] [proxy:debug] [pid 11] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:55:43.341157 2024] [proxy:debug] [pid 11] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:55:43.341201 2024] [proxy:debug] [pid 11] proxy_util.c(2262): AH00931: initialized single connection worker in child 11 for (*:80)
+[Wed Feb 07 05:55:43.341203 2024] [proxy:debug] [pid 12] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:55:43.341217 2024] [proxy:debug] [pid 12] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:55:43.341260 2024] [proxy:debug] [pid 12] proxy_util.c(2262): AH00931: initialized single connection worker in child 12 for (*:80)
+[Wed Feb 07 05:56:46.405086 2024] [unixd:alert] [pid 13] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Feb 07 05:56:46.405357 2024] [proxy:debug] [pid 13] proxy_util.c(2154): AH00925: initializing worker proxy:reverse shared
+[Wed Feb 07 05:56:46.405385 2024] [proxy:debug] [pid 13] proxy_util.c(2214): AH00927: initializing worker proxy:reverse local
+[Wed Feb 07 05:56:46.405486 2024] [proxy:debug] [pid 13] proxy_util.c(2262): AH00931: initialized single connection worker in child 13 for (*:80)
+[Wed Feb 07 05:57:31.925661 2024] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
