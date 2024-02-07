@@ -4,7 +4,7 @@
 if command -v docker-compose &> /dev/null; then
     DOCKER_CMD="docker-compose"
 # Check if docker compose command is available
-elif command -v docker-compose &> /dev/null; then
+elif command -v docker compose &> /dev/null; then
     DOCKER_CMD="docker compose"
 else
     echo "Neither docker-compose nor docker compose command found. Please install Docker Compose and try again."
