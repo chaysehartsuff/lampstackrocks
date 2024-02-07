@@ -1,29 +1,18 @@
 version: '3.8'
 
 services:
-  php:
+  web:
     build:
       context: .
-      dockerfile: ./dockerfiles/php.dockerfile
+      dockerfile: ./dockerfiles/web.dockerfile
     env_file:
       - .env
     volumes:
       - ./src:/var/www/html
-    networks:
-      - app-network
-    ports:
-     - "9000:9000"
-
-  apache:
-    image: httpd:2.4
-    depends_on:
-      - php
+      - ./config:/etc/httpd/conf
+      - ./logs:/usr/local/apache2/logs
     ports:
       - "8080:80"
-    volumes:
-      - ./config:/usr/local/apache2/conf
-      - ./src:/var/www/html
-      - ./logs:/usr/local/apache2/logs
     networks:
       - app-network
 
@@ -35,9 +24,6 @@ services:
       - "3306:3306"
     networks:
       - app-network
-
-volumes:
-  db_data:
 
 networks:
   app-network:

@@ -55,7 +55,7 @@
             <label for="phone">Phone:</label>
             <input type="text" id="phone" name="phone"><br>
 
-            <input type="submit" value="Update">
+            <input type="submit" value="Add User">
         </form>
     </div>
 </body>
