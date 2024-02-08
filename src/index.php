@@ -35,13 +35,24 @@
         .search{
             margin: 10px;
         }
-        table{
-            width: 95%;
-            margin: auto;
-        }
         body{
             margin: 0;
             padding: 0;
+        }
+        .hide {
+            display: none;
+        }
+        .tbody-container {
+            width: 95%;
+            margin: auto;
+            max-height: 45rem;
+            overflow-y: auto;
+        }
+        thead {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            z-index: 1; 
         }
 
     </style>
@@ -64,6 +75,7 @@
     </button>
 </div>
 
+<div class="tbody-container">
     <table>
         <thead>
             <tr>
@@ -76,8 +88,11 @@
                 <th>Actions</th>
             </tr>
         </thead>
+
         <tbody id="userTableBody"></tbody>
+
     </table>
+    </div>
 
     <script>
         function refreshTable(search = '') {
@@ -89,17 +104,22 @@
                     const tbody = document.getElementById('userTableBody');
                     tbody.innerHTML = '';
                     response.users.forEach(function(user) {
-                        const row = `<tr class="clickable-row" onclick="window.location='user.php?id=${user.id}';">
+                        // Create bullet point lists for addresses, emails, and phones
+                        const addressesList = user.addresses.map(address => `<li>${address}</li>`).join('');
+                        const emailsList = user.emails.map(email => `<li>${email}</li>`).join('');
+                        const phonesList = user.phones.map(phone => `<li>${phone}</li>`).join('');
+
+                        const row = `<tr id="user-${user.id}" class="clickable-row" onclick="window.location='user.php?id=${user.id}';">
                                         <td>${user.id}</td>
                                         <td>${user.first_name}</td>
                                         <td>${user.last_name}</td>
-                                        <td>${user.email}</td>
-                                        <td>${user.address}</td>
-                                        <td>${user.phone}</td>
+                                        <td><ul>${emailsList}</ul></td>
+                                        <td><ul>${addressesList}</ul></td>
+                                        <td><ul>${phonesList}</ul></td>
                                         <td>
                                             <button onclick="event.stopPropagation(); confirmDelete(${user.id});">Delete</button>
                                         </td>
-                                     </tr>`;
+                                    </tr>`;
                         tbody.innerHTML += row;
                     });
                 }
@@ -118,6 +138,7 @@
             refreshTable();
         });
     </script>
+
 </body>
 
 
