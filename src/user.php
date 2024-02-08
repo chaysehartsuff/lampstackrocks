@@ -17,8 +17,44 @@ if (isset($_GET['id'])) {
     } else {
         echo "No user found with ID: $id";
     }
-
     $stmt->close();
+
+    $addresses = [];
+    $emails = [];
+    $phones = [];
+    if ($userData) {
+        // Fetch addresses
+        $stmt = $conn->prepare("SELECT address FROM addresses WHERE user_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $addresses[] = $row['address'];
+        }
+        $stmt->close();
+
+        // Fetch emails
+        $stmt = $conn->prepare("SELECT email FROM emails WHERE user_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $emails[] = $row['email'];
+        }
+        $stmt->close();
+
+        // Fetch phones
+        $stmt = $conn->prepare("SELECT phone FROM phones WHERE user_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $phones[] = $row['phone'];
+        }
+        $stmt->close();
+    }
+
+
 } else {
     echo "No user ID provided.";
 }
@@ -56,7 +92,17 @@ $conn->close();
         }
 
         label, input {
+            margin-bottom: 5px;
+        }
+        .input-group{
+            margin-top: 10px;
+        }
+        .input-box{
+            margin-top: 10px;
             margin-bottom: 10px;
+        }
+        .input-box label{
+            display: block;
         }
     </style>
 </head>
@@ -77,19 +123,76 @@ $conn->close();
             <label for="lname">Last Name:</label>
             <input type="text" id="lname" name="last_name" value="<?php echo htmlspecialchars($userData['last_name']); ?>"><br><br>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($userData['email']); ?>"><br><br>
+            <!-- Dynamic Email Fields -->
+            <div id="email-fields" class="input-box">
+                <label for="email">Emails:
+                    <button type="button" onclick="addInput('email-fields', 'email', 'emails[]')">Add Email</button>
+                </label>
+                <?php foreach ($emails as $email): ?>
+                    <div class="input-group">
+                        <input type="email" name="emails[]" value="<?php echo htmlspecialchars($email); ?>">
+                        <button type="button" onclick="removeInput(this)">Remove</button>
+                    </div>
+                <?php endforeach; ?>
+            </div>
 
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($userData['address']); ?>"><br><br>
+            <!-- Dynamic Address Fields -->
+            <div id="address-fields" class="input-box">
+                <label for="address">Addresses:
+                    <button type="button" onclick="addInput('address-fields', 'text', 'addresses[]')">Add Address</button>
+                </label>
+                <?php foreach ($addresses as $address): ?>
+                    <div class="input-group">
+                        <input type="text" name="addresses[]" value="<?php echo htmlspecialchars($address); ?>">
+                        <button type="button" onclick="removeInput(this)">Remove</button>
+                    </div>
+                <?php endforeach; ?>
+            </div>
 
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($userData['phone']); ?>"><br><br>
+            <!-- Dynamic Phone Fields -->
+            <div id="phone-fields" class="input-box">
+                <label for="phone">Phones:
+                    <button type="button" onclick="addInput('phone-fields', 'text', 'phones[]')">Add Phone</button>
+                </label>
+                <?php foreach ($phones as $phone): ?>
+                    <div class="input-group">
+                        <input type="text" name="phones[]" value="<?php echo htmlspecialchars($phone); ?>">
+                        <button type="button" onclick="removeInput(this)">Remove</button>
+                    </div>
+                <?php endforeach; ?>
+            </div>
 
             <input type="submit" value="Update">
         </form>
     <?php else: ?>
         <p>User not found.</p>
     <?php endif; ?>
+
+    <script>
+        function addInput(containerId, inputType, name) {
+            const container = document.getElementById(containerId);
+            const inputGroup = document.createElement('div');
+            inputGroup.classList.add('input-group');
+
+            const input = document.createElement('input');
+            input.type = inputType;
+            input.name = name;
+            inputGroup.appendChild(input);
+
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.textContent = 'Remove';
+            removeBtn.onclick = function() { removeInput(removeBtn); };
+            inputGroup.appendChild(removeBtn);
+
+            container.appendChild(inputGroup);
+        }
+
+        function removeInput(btn) {
+            const inputGroup = btn.parentNode;
+            inputGroup.parentNode.removeChild(inputGroup);
+        }
+    </script>
 </body>
+
 </html>

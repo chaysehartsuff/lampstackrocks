@@ -1,49 +1,81 @@
 <?php
 require 'db_connection.php';
+$success = false;
 
-// Check if form data is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Escape user inputs for security
     $first_name = $conn->real_escape_string($_POST['first_name']);
     $last_name = $conn->real_escape_string($_POST['last_name']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $address = $conn->real_escape_string($_POST['address']);
-    $phone = $conn->real_escape_string($_POST['phone']);
+
+    $emails = $_POST['emails'] ?? [];
+    $addresses = $_POST['addresses'] ?? [];
+    $phones = $_POST['phones'] ?? [];
 
     if (!empty($_POST['id'])) {
-        // ID was passed, attempt to update the user
         $id = $conn->real_escape_string($_POST['id']);
 
-        // Check if user exists
-        $checkUser = $conn->prepare("SELECT * FROM users WHERE id = ?");
-        $checkUser->bind_param("i", $id);
-        $checkUser->execute();
-        $result = $checkUser->get_result();
-        $checkUser->close();
+        $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $first_name, $last_name, $id);
+        if (!$stmt->execute()) {
+            echo "Error updating user: " . $stmt->error;
+        }
+        $stmt->close();
+        $userId = $id;
+        $success = true;
 
-        if ($result->num_rows == 0) {
-            echo "User does not exist.";
-            exit;
+        // delete previous records for user 
+        $deleteQueries = [
+            "DELETE FROM emails WHERE user_id = $userId",
+            "DELETE FROM addresses WHERE user_id = $userId",
+            "DELETE FROM phones WHERE user_id = $userId",
+        ];
+        foreach ($deleteQueries as $query) {
+            if (!$conn->query($query)) {
+                echo "Error deleting related records: " . $conn->error;
+                $success = false;
+            }
+        }
+    } else {
+        // create new user
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name) VALUES (?, ?)");
+        $stmt->bind_param("ss", $first_name, $last_name);
+        if ($stmt->execute()) {
+            $userId = $stmt->insert_id; // Get the new user's ID
+            $success = true;
+        } else {
+            echo "Error: " . $stmt->error;
+            $success = false;
+        }
+        $stmt->close();
+    }
+
+    if ($success && $userId) {
+        // Insert emails
+        foreach ($emails as $email) {
+            $email = $conn->real_escape_string($email);
+            $stmt = $conn->prepare("INSERT INTO emails (user_id, email) VALUES (?, ?)");
+            $stmt->bind_param("is", $userId, $email);
+            $stmt->execute();
+            $stmt->close();
         }
 
-        // User exists, proceed to update
-        $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, address = ?, phone = ? WHERE id = ?");
-        $stmt->bind_param("sssssi", $first_name, $last_name, $email, $address, $phone, $id);
-    } else {
-        // No ID was passed, proceed to insert a new user
-        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, address, phone) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $first_name, $last_name, $email, $address, $phone);
-    }
+        // Insert addresses
+        foreach ($addresses as $address) {
+            $address = $conn->real_escape_string($address);
+            $stmt = $conn->prepare("INSERT INTO addresses (user_id, address) VALUES (?, ?)");
+            $stmt->bind_param("is", $userId, $address);
+            $stmt->execute();
+            $stmt->close();
+        }
 
-    // Execute the prepared statement
-    if ($stmt->execute()) {
-        $success = true;
-    } else {
-        echo "Error: " . $stmt->error;
+        // Insert phones
+        foreach ($phones as $phone) {
+            $phone = $conn->real_escape_string($phone);
+            $stmt = $conn->prepare("INSERT INTO phones (user_id, phone) VALUES (?, ?)");
+            $stmt->bind_param("is", $userId, $phone);
+            $stmt->execute();
+            $stmt->close();
+        }
     }
-
-    // Close statement and connection
-    $stmt->close();
 }
 
 // Close connection
@@ -54,10 +86,9 @@ $conn->close();
 <html lang="en">
 <body>
 <script>
-     <?php if ($success): ?>
+    <?php if ($success): ?>
         window.location = "index.php?success";
     <?php endif; ?>
 </script>
 </body>
 </html>
-
