@@ -54,6 +54,17 @@
             background-color: #fff;
             z-index: 1; 
         }
+        .hidden{
+            display: none;
+        }
+        .button-disabled {
+            background-color: #ccc; /* Grey background */
+            color: #666; /* Darker text color */
+            border: 1px solid #999; /* Optional: adds a border */
+            pointer-events: none; /* Prevents click events */
+            opacity: 0.5; /* Makes the button look faded */
+        }
+
 
     </style>
 </head>
@@ -109,7 +120,7 @@
                         const emailsList = user.emails.map(email => `<li>${email}</li>`).join('');
                         const phonesList = user.phones.map(phone => `<li>${phone}</li>`).join('');
 
-                        const row = `<tr id="user-${user.id}" class="clickable-row" onclick="window.location='user.php?id=${user.id}';">
+                        const row = `<tr id="user-all-${user.id}" class="hidden clickable-row" onclick="window.location='user.php?id=${user.id}';">
                                         <td>${user.id}</td>
                                         <td>${user.first_name}</td>
                                         <td>${user.last_name}</td>
@@ -118,6 +129,21 @@
                                         <td><ul>${phonesList}</ul></td>
                                         <td>
                                             <button onclick="event.stopPropagation(); confirmDelete(${user.id});">Delete</button>
+                                            <button onclick="event.stopPropagation(); showAll(${user.id});">Hide details</button>
+                                        </td>
+                                    </tr>
+                                    <tr id="user-${user.id}" class="clickable-row" onclick="window.location='user.php?id=${user.id}';">
+                                        <td>${user.id}</td>
+                                        <td>${user.first_name}</td>
+                                        <td>${user.last_name}</td>
+                                        <td><ul>${user.emails[0] ?? ''}</ul></td>
+                                        <td><ul>${user.addresses[0] ?? ''}</ul></td>
+                                        <td><ul>${user.phones[0] ?? ''}</ul></td>
+                                        <td>
+                                            <button onclick="event.stopPropagation(); confirmDelete(${user.id});">Delete</button>
+                                            <button class="${(user.emails.length < 2 &&
+                                                            user.phones.length < 2 &&
+                                                            user.addresses.length < 2) ? 'button-disabled' : '' }" onclick="event.stopPropagation(); showOne(${user.id});">Show details</button>
                                         </td>
                                     </tr>`;
                         tbody.innerHTML += row;
@@ -132,6 +158,17 @@
             if (confirmation) {
                 window.location.href = `delete.php?id=${id}`;
             }
+        }
+        function showAll(user_id){
+
+            document.getElementById("user-all-"+user_id).classList.add('hidden');
+            document.getElementById("user-"+user_id).classList.remove('hidden');
+            console.log("HERE");
+        }
+        function showOne(user_id){
+            document.getElementById("user-all-"+user_id).classList.remove('hidden');
+            document.getElementById("user-"+user_id).classList.add('hidden');
+            console.log("HERE");
         }
 
         document.addEventListener('DOMContentLoaded', function() {
